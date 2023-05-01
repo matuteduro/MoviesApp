@@ -17,7 +17,7 @@ export const Navigation = () => {
         screenOptions={{
             headerShown: false,
             cardStyle:{
-                backgroundColor: 'purple'
+                backgroundColor: '#302742'
             }
         }}
     >
