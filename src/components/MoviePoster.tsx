@@ -22,13 +22,14 @@ const MoviePoster = ({movie, height = 420, width = 300} : Props) => {
 
     return (
         <TouchableOpacity
-        onPress={ () => navigation.dispatch(CommonActions.navigate('DetailScreen'))}
+        onPress={ () => navigation.dispatch(CommonActions.navigate('DetailScreen', movie))}
         activeOpacity={0.77} 
         style={{
             width,
             height,
             marginHorizontal: 7.9,
-            paddingBottom: 20
+            paddingBottom: 20,
+            paddingHorizontal: 7
             }}>
             <View style={ styles.imageContainer}>
                 <Image source={{uri}}
