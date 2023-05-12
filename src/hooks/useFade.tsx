@@ -1,12 +1,11 @@
-import React, {useRef} from 'react'
+import React, { useRef } from 'react'
 import { Animated } from 'react-native';
 
- 
-const useFade = () => {
+export const useFade = () => {
     
-    const opacity = useRef(new Animated.Value(0)).current
-
-    const fadeIn = () => {
+    const opacity = useRef( new Animated.Value(0) ).current;
+    
+    const fadeIn = ( callback?: Function ) => {
         Animated.timing(
             opacity,
             {
@@ -14,22 +13,24 @@ const useFade = () => {
                 duration: 300,
                 useNativeDriver: true
             }
-        ).start();
+        ).start( () => callback ? callback() : null );
     }
 
-    const fadeOut = () => {
+    const fadeOut = ( duration: number = 300) => {
         Animated.timing(
             opacity,
             {
                 toValue: 0,
-                duration: 300,
+                duration,
                 useNativeDriver: true
             }
         ).start();
     }
 
-    return {opacity, fadeIn, fadeOut}
-}
 
- 
-export default useFade
+    return {
+        opacity,
+        fadeIn,
+        fadeOut
+    }
+}

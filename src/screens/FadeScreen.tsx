@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Text, View, StyleSheet, Animated, Button } from 'react-native';
-import useFade from '../hooks/useFade';
+import {useFade} from '../hooks/useFade';
 
 const FadeScreen = () => {
 
@@ -21,13 +21,14 @@ const FadeScreen = () => {
 
             </Animated.View>
 
-            <Button
+            <Button 
                 title="FadeIn"
-                onPress={fadeIn}
+                onPress={ () => fadeIn() }
             />
-            <Button
-                title="FadeIn"
-                onPress={fadeOut}
+
+            <Button 
+                title="FadeOut"
+                onPress={ () => fadeOut() }
             />
         </View>
     )

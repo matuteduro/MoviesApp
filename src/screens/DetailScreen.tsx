@@ -1,11 +1,15 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import { Text, View, Image, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { RootStackParamList } from '../navigation/Navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useMovieDetails from '../hooks/useMovieDetails';
 import MovieDetails from '../components/MovieDetails';
+import { GradientBackground } from '../components/GradientBackground';
+import { GradientContext } from '../context/GradientContext';
+import { getImageColors } from '../helpers/getColores';
+
 
 const screenHight = Dimensions.get('screen').height;
 
@@ -16,10 +20,28 @@ const DetailScreen = ({route, navigation}:Props) => {
     const movie = route.params;
 
     const uri = `https://image.tmdb.org/t/p/w500${ movie.poster_path}`
+
+    const { setMainColors } = useContext( GradientContext )
+
     
     const {isLoading, movieFull, cast} = useMovieDetails(movie.id)
 
+    const getPosterColors = async (index:number) => {
+        
+
+        const [primary = 'black', secondary= 'black' ] = await getImageColors(uri);
+
+        setMainColors({primary, secondary})
+    }   
+
+    useEffect(() => {
+        
+            getPosterColors(0)
+    }, [ uri ])
+
     return (
+        <GradientBackground>
+
         <ScrollView>
         <View style={ styles.imageContainer}>
             <View style={styles.imageBorder}>
@@ -53,6 +75,7 @@ const DetailScreen = ({route, navigation}:Props) => {
             </TouchableOpacity>
         </View>
         </ScrollView>
+        </GradientBackground>
     )
 }
 
